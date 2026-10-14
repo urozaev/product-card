@@ -1,0 +1,75 @@
+@use "sass:map";
+
+$breakpoints: (
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+@mixin mq($name) {
+  @media (min-width: map.get($breakpoints, $name)) {
+    @content;
+  }
+}
+
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+:root {
+  --c-cream: #fefcef;
+  --c-cream-deep: #f8f2d6;
+  --c-yellow: #f5d43c;
+  --c-yellow-hover: #f0c419;
+  --c-yellow-deep: #a88400;
+  --c-ink: #262420;
+  --c-text: #444;
+  --c-muted: #6b6558;
+  --c-line: #ebe5d2;
+  --c-surface: #fff;
+  --c-page: #f8f7f2;
+  --c-price: #d1291c;
+  --c-green: #3f7a17;
+  --c-green-soft: #e8f3d4;
+  --c-dark: #1f1e1b;
+
+  --font: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-price: clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem);
+  --fs-title: clamp(1.75rem, 1.15rem + 2.4vw, 2.75rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  --r-card: 1.5rem;
+  --r-control: 0.875rem;
+  --r-pill: 999px;
+
+  --gutter: 1rem;
+  --container: 75rem;
+  --control-h: 3.25rem;
+
+  --shadow-card: 0 1px 2px rgb(38 36 32 / 0.04), 0 12px 32px -12px rgb(38 36 32 / 0.12);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  @include mq(md) {
+    --gutter: 1.5rem;
+  }
+
+  @include mq(lg) {
+    --gutter: 2rem;
+  }
+}

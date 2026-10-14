@@ -1,0 +1,14 @@
+{
+  "name": "teaboom-product-card",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Тестовое задание: карточка товара Teaboom.ru («Ананасовый улун»)",
+  "scripts": {
+    "build": "sass scss/main.scss css/main.css --style=compressed --no-source-map",
+    "dev": "sass scss/main.scss css/main.css --watch",
+    "start": "npx --yes serve ."
+  },
+  "devDependencies": {
+    "sass": "^1.80.0"
+  }
+}

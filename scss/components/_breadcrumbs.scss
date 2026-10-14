@@ -1,0 +1,64 @@
+@use "../tokens" as *;
+
+// На мобильном цепочка длинная, поэтому скроллим её по горизонтали
+// одной строкой, чтобы не занимать пол-экрана.
+.breadcrumbs {
+  margin-block: var(--space-4) var(--space-3);
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  overflow-x: auto;
+  scrollbar-width: none;
+  mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include mq(md) {
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+    mask-image: none;
+  }
+
+  &__list {
+    display: flex;
+    gap: var(--space-2);
+    width: max-content;
+    font-size: var(--fs-xs);
+    color: var(--c-muted);
+
+    @include mq(md) {
+      flex-wrap: wrap;
+      width: auto;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    white-space: nowrap;
+
+    &:not(:last-child)::after {
+      content: "/";
+      content: "/" / "";
+      color: var(--c-line);
+    }
+
+    a {
+      text-decoration: none;
+      transition: color 0.15s;
+
+      @include hover {
+        color: var(--c-ink);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+
+    [aria-current] {
+      color: var(--c-ink);
+    }
+  }
+}

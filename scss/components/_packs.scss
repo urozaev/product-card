@@ -1,0 +1,123 @@
+@use "../tokens" as *;
+
+.packs {
+  container: packs / inline-size;
+
+  &__legend {
+    margin-bottom: var(--space-3);
+    padding: 0;
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+}
+
+@container packs (min-width: 32rem) {
+  .packs__list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pack__per {
+    display: block;
+  }
+}
+
+.pack {
+  position: relative;
+  display: grid;
+  gap: 0.125rem;
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--c-line);
+  border-radius: var(--r-control);
+  background: var(--c-surface);
+  cursor: pointer;
+  transition:
+    border-color 0.2s var(--ease),
+    background-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+
+  @include hover {
+    border-color: var(--c-yellow-deep);
+  }
+
+  // radio скрыт визуально, оставляем в дереве доступности и фокусе
+  &__input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  &__weight {
+    font-size: var(--fs-md);
+    font-weight: 700;
+    color: var(--c-ink);
+  }
+
+  &__unit {
+    font-size: var(--fs-xs);
+    color: var(--c-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__badge {
+    position: absolute;
+    top: -0.625rem;
+    right: var(--space-2);
+    padding: 0.0625rem var(--space-2);
+    border-radius: var(--r-pill);
+    background: var(--c-green-soft);
+    color: var(--c-green);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  // Галочка выбранной фасовки
+  &::after {
+    content: "";
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: var(--r-pill);
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23262420' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' d='m6 12.5 4 4L18 8'/%3E%3C/svg%3E")
+        center / 0.75rem no-repeat,
+      var(--c-yellow);
+    opacity: 0;
+    transform: scale(0.5);
+    transition:
+      opacity 0.2s var(--ease),
+      transform 0.25s var(--ease);
+  }
+
+  &:has(:checked) {
+    border-color: var(--c-yellow-deep);
+    background: var(--c-cream);
+    box-shadow: inset 0 0 0 1px var(--c-yellow-deep);
+
+    &::after {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  &:has(:focus-visible) {
+    outline: 3px solid var(--c-ink);
+    outline-offset: 2px;
+  }
+
+  &:has(.pack__badge)::after {
+    top: auto;
+    bottom: var(--space-3);
+  }
+}
